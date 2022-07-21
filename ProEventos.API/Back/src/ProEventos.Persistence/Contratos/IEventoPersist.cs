@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using ProEventos.Domain;
 namespace ProEventos.Persistence.Contratos
 {
-    public interface IEventosPersist
+    public interface IEventoPersist
     {
         
 

@@ -1,8 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ProEventos.API.Data;
-using ProEventos.API.Models;
 using ProEventos.Persistence;
 using ProEventos.Domain;
 using ProEventos.Persistence.Contextos;
@@ -14,20 +15,17 @@ namespace ProEventos.API.Controllers
     [ApiController]
     [Route("api/[controller]")]
     public class EventosController : ControllerBase
-    {            
+    {
         private readonly IEventoService _eventoService;
 
         public EventosController(IEventoService eventoService)
         {
-           
             _eventoService = eventoService;
         }
 
         [HttpGet]
-        
         public async Task<IActionResult> Get()
         {
-            return _context.Eventos;
             try
             {
                 var eventos = await _eventoService.GetAllEventosAsync(true);
@@ -43,12 +41,8 @@ namespace ProEventos.API.Controllers
         }
 
         [HttpGet("{id}")]
-      
         public async Task<IActionResult> GetById(int id)
         {
-            return _context.Eventos.FirstOrDefault(
-                evento => evento.EventoId == id
-            );
             try
             {
                 var evento = await _eventoService.GetEventoByIdAsync(id, true);
@@ -81,10 +75,8 @@ namespace ProEventos.API.Controllers
         }
 
         [HttpPost]
-        
         public async Task<IActionResult> Post(Evento model)
         {
-            return "Exemplo de Post";
             try
             {
                 var evento = await _eventoService.AddEventos(model);
@@ -100,10 +92,8 @@ namespace ProEventos.API.Controllers
         }
 
         [HttpPut("{id}")]
-       
         public async Task<IActionResult> Put(int id, Evento model)
         {
-            return $"Exemplo de Put com id = {id}";
             try
             {
                 var evento = await _eventoService.UpdateEvento(id, model);
@@ -119,10 +109,8 @@ namespace ProEventos.API.Controllers
         }
 
         [HttpDelete("{id}")]
-   
         public async Task<IActionResult> Delete(int id)
         {
-            return $"Exemplo de Delete com id = {id}";
             try
             {
                 return await _eventoService.DeleteEvento(id) ? 
